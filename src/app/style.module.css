@@ -1,0 +1,26 @@
+.tooltipbox {
+  background: #fff2ca;
+  padding: 5px 10px;
+  font-weight: 600;
+  color: black;
+  font-family: arial;
+  border: 1px solid #fcd45b;
+  position: relative;
+}
+.tooltip_sb3 > p > span {
+  color: rgb(91, 85, 85);
+  display: inline-block;
+  margin-right: 5px;
+}
+/* .tooltip_sb3:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid #fcd45b;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #fff2ca;
+  border-bottom: 10px solid transparent;
+  left: 19px;
+  bottom: -19px;
+} */

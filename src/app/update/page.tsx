@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import Style from "./style.module.css";
+import React, { useState } from "react";
+
 import {
   LineChart,
   Line,
@@ -8,45 +8,25 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
-  ResponsiveContainer,
 } from "recharts";
 
 // Type declaration
-
 interface DataPoint {
   month: string;
-  va_name: string;
-  event_name: string;
-  hours: string;
-  price: string;
-  obj_id: string;
-  cy?: number;
-  cx?: number;
+  Va: string;
+  status: string;
+  hours: number;
+  price: number;
 }
 
-interface tooltipProps {
+interface Props {
   active?: boolean;
-  payload?: any[]; // Change to appropriate type if possible
+  payload?: any[];
   label?: string;
-  series?: { data: DataPoint[] }[]; // Assuming series is passed as props
+  series?: { data: DataPoint[] }[];
 }
 
-interface seriesDatatype {
-  id: string;
-  data: DataPoint[];
-}
-
-//enum color
-enum DotColors {
-  Upsell = "#FFCA28",
-  Upgrade = "#42A5F5",
-  Activated = "#54B358",
-  Deactivated = "#BDBDBD",
-  Downgrade = "#EF5350",
-}
-//data array
-const series: seriesDatatype[] = [
+const series = [
   {
     id: "main0",
     data: [
@@ -55,185 +35,112 @@ const series: seriesDatatype[] = [
         month: "Jan2023",
         hours: "4hr",
         va_name: "Faiz elahi",
-
+        dotColor: "#54B358",
         obj_id: "main0",
-        price: "10$",
       },
       {
         event_name: "Activated",
         month: "Feb2023",
         hours: "4hr",
         va_name: "Faiz elahi",
+        dotColor: "#54B358",
         obj_id: "main0",
-        price: "10$",
       },
       {
-        event_name: "Upgrade",
+        event_name: "Activated",
         month: "Mar2023",
         hours: "4hr",
         va_name: "Faiz elahi",
+        dotColor: "#54B358",
         obj_id: "main0",
-        price: "10$",
       },
       {
         event_name: "Activated",
         month: "Apr2023",
         hours: "4hr",
         va_name: "Faiz elahi",
+        dotColor: "#54B358",
         obj_id: "main0",
-        price: "10$",
       },
       {
-        event_name: "Upgrade",
+        event_name: "Activated",
         month: "May2023",
         hours: "4hr",
         va_name: "Faiz elahi",
+        dotColor: "#54B358",
         obj_id: "main0",
-        price: "10$",
       },
       {
         event_name: "Activated",
         month: "Jun2023",
         hours: "4hr",
         va_name: "Faiz elahi",
-
+        dotColor: "#54B358",
         obj_id: "main0",
-        price: "10$",
       },
       {
         event_name: "Activated",
         month: "Jul2023",
         hours: "4hr",
         va_name: "Faiz elahi",
-
+        dotColor: "#54B358",
         obj_id: "main0",
-        price: "10$",
       },
       {
         event_name: "Activated",
         month: "Aug2023",
         hours: "4hr",
         va_name: "Faiz elahi",
-
+        dotColor: "#54B358",
         obj_id: "main0",
-        price: "10$",
       },
       {
         event_name: "Activated",
         month: "Sep2023",
         hours: "4hr",
         va_name: "Faiz elahi",
-
+        dotColor: "#54B358",
         obj_id: "main0",
-        price: "10$",
       },
       {
         event_name: "Activated",
         month: "Oct2023",
         hours: "4hr",
         va_name: "Faiz elahi",
-
+        dotColor: "#54B358",
         obj_id: "main0",
-        price: "10$",
       },
       {
         event_name: "Activated",
         month: "Nov2023",
         hours: "4hr",
         va_name: "Faiz elahi",
-
+        dotColor: "#54B358",
         obj_id: "main0",
-        price: "10$",
       },
       {
         event_name: "Activated",
         month: "Dec2023",
         hours: "4hr",
         va_name: "Faiz elahi",
-
+        dotColor: "#54B358",
         obj_id: "main0",
-        price: "10$",
       },
       {
         event_name: "Activated",
         month: "Jan2024",
         hours: "4hr",
         va_name: "Faiz elahi",
-
+        dotColor: "#54B358",
         obj_id: "main0",
-        price: "10$",
       },
       {
         event_name: "Deactivated",
         month: "Mar2024",
         hours: "4hr",
         va_name: "Faiz elahi",
-
+        dotColor: "#BDBDBD",
         obj_id: "main0",
-        price: "10$",
-      },
-      {
-        event_name: "Deactivated",
-        month: "Apr2024",
-        hours: "4hr",
-        va_name: "Faiz elahi",
-
-        obj_id: "main0",
-        price: "10$",
-      },
-      {
-        event_name: "Upsell",
-        month: "May2024",
-        hours: "4hr",
-        va_name: "Faiz elahi",
-
-        obj_id: "main0",
-        price: "10$",
-      },
-      {
-        event_name: "Upsell",
-        month: "Jun2024",
-        hours: "4hr",
-        va_name: "Faiz elahi",
-
-        obj_id: "main0",
-        price: "10$",
-      },
-      {
-        event_name: "Upsell",
-        month: "Jul2024",
-        hours: "4hr",
-        va_name: "Faiz elahi",
-
-        obj_id: "main0",
-        price: "10$",
-      },
-      {
-        event_name: "Upsell",
-        month: "Aug2024",
-        hours: "4hr",
-        va_name: "Faiz elahi",
-
-        obj_id: "main0",
-        price: "10$",
-      },
-      {
-        event_name: "Upsell",
-        month: "Sep2024",
-        hours: "4hr",
-        va_name: "Faiz elahi",
-
-        obj_id: "main0",
-        price: "10$",
-      },
-      {
-        event_name: "Upsell",
-        month: "Oct2024",
-        hours: "4hr",
-        va_name: "Faiz elahi",
-
-        obj_id: "main0",
-        price: "10$",
       },
     ],
   },
@@ -245,18 +152,16 @@ const series: seriesDatatype[] = [
         month: "Feb2023",
         hours: "4hr",
         va_name: "Meena Guria",
-
+        dotColor: "#54B358",
         obj_id: "main1",
-        price: "120$",
       },
       {
         event_name: "Deactivated",
         month: "Mar2023",
         hours: "4hr",
         va_name: "Meena Guria",
-
+        dotColor: "#BDBDBD",
         obj_id: "main1",
-        price: "120$",
       },
     ],
   },
@@ -268,27 +173,24 @@ const series: seriesDatatype[] = [
         month: "Dec2022",
         hours: "8hr",
         va_name: "Astha Shukla",
-
+        dotColor: "#54B358",
         obj_id: "main2",
-        price: "10$",
       },
       {
         event_name: "Deactivated",
         month: "Dec2022",
         hours: "8hr",
         va_name: "Astha Shukla",
-
+        dotColor: "#BDBDBD",
         obj_id: "main2",
-        price: "10$",
       },
       {
         event_name: "Downgrade",
         month: "Mar2024",
         hours: "8hr",
         va_name: "Astha Shukla",
-
+        dotColor: "#EF5350",
         obj_id: "main2",
-        price: "10$",
       },
     ],
   },
@@ -300,36 +202,32 @@ const series: seriesDatatype[] = [
         month: "Apr2021",
         hours: "8hr",
         va_name: "Rahul Shukla",
-
+        dotColor: "#54B358",
         obj_id: "main3",
-        price: "10$",
       },
       {
         event_name: "Deactivated",
         month: "Dec2022",
         hours: "8hr",
         va_name: "Rahul Shukla",
-
+        dotColor: "#BDBDBD",
         obj_id: "main3",
-        price: "10$",
       },
       {
         event_name: "Deactivated",
         month: "Mar2024",
         hours: "8hr",
         va_name: "Rahul Shukla",
-
+        dotColor: "#BDBDBD",
         obj_id: "main3",
-        price: "10$",
       },
       {
         event_name: "Downgrade",
         month: "Dec2024",
         hours: "8hr",
         va_name: "Rahul Shukla",
-
+        dotColor: "#EF5350",
         obj_id: "main3",
-        price: "10$",
       },
     ],
   },
@@ -341,27 +239,24 @@ const series: seriesDatatype[] = [
         month: "Apr2021",
         hours: "8hr",
         va_name: "Arham khan",
-
+        dotColor: "#54B358",
         obj_id: "main4",
-        price: "10$",
       },
       {
         event_name: "Deactivated",
         month: "Dec2022",
         hours: "8hr",
         va_name: "Arham khan",
-
+        dotColor: "#BDBDBD",
         obj_id: "main4",
-        price: "10$",
       },
       {
         event_name: "Downgrade",
         month: "Dec2024",
         hours: "8hr",
         va_name: "Arham khan",
-
+        dotColor: "#EF5350",
         obj_id: "main4",
-        price: "10$",
       },
     ],
   },
@@ -373,27 +268,24 @@ const series: seriesDatatype[] = [
         month: "Apr2021",
         hours: "8hr",
         va_name: "Arham khan",
-
+        dotColor: "#54B358",
         obj_id: "main4",
-        price: "10$",
       },
       {
         event_name: "Deactivated",
         month: "Dec2022",
         hours: "8hr",
         va_name: "Arham khan",
-
+        dotColor: "#BDBDBD",
         obj_id: "main4",
-        price: "10$",
       },
       {
         event_name: "Downgrade",
         month: "Dec2024",
         hours: "8hr",
         va_name: "Arham khan",
-
+        dotColor: "#EF5350",
         obj_id: "main4",
-        price: "10$",
       },
     ],
   },
@@ -405,27 +297,24 @@ const series: seriesDatatype[] = [
         month: "Apr2021",
         hours: "8hr",
         va_name: "hello khan",
-
+        dotColor: "#54B358",
         obj_id: "main5",
-        price: "10$",
       },
       {
         event_name: "Deactivated",
         month: "Dec2022",
         hours: "8hr",
         va_name: "hello khan",
-
+        dotColor: "#BDBDBD",
         obj_id: "main5",
-        price: "10$",
       },
       {
         event_name: "Downgrade",
         month: "Dec2024",
         hours: "8hr",
         va_name: "hello khan",
-
+        dotColor: "#EF5350",
         obj_id: "main5",
-        price: "10$",
       },
     ],
   },
@@ -437,36 +326,32 @@ const series: seriesDatatype[] = [
         month: "Apr2021",
         hours: "8hr",
         va_name: "A khan",
-
+        dotColor: "#54B358",
         obj_id: "main6",
-        price: "10$",
       },
       {
         event_name: "Deactivated",
         month: "Dec2022",
         hours: "8hr",
         va_name: "A khan",
-
+        dotColor: "#BDBDBD",
         obj_id: "main6",
-        price: "10$",
       },
       {
         event_name: "Downgrade",
         month: "Dec2024",
         hours: "8hr",
         va_name: "A khan",
-
+        dotColor: "#EF5350",
         obj_id: "main6",
-        price: "10$",
       },
     ],
   },
 ];
 
-const OrgTimelineChart = () => {
+export default function OrgtimelineChart() {
   const [activePoint, setActivePoint] = useState<DataPoint | null>(null);
 
-  // for activePoint in chart
   const handleMouseOver = (dataPoint: DataPoint) => {
     setActivePoint(dataPoint);
   };
@@ -475,117 +360,97 @@ const OrgTimelineChart = () => {
     setActivePoint(null);
   };
 
-  // sort months
+  const CustomTooltip: React.FC<Props> = ({ active, payload }) => {
+    if (active && activePoint && payload && payload.length) {
+      return (
+        <div
+          style={{
+            backgroundColor: "white",
+            border: "1px solid black",
+            padding: "5px",
+          }}
+        >
+          <p>Date: {activePoint.month}</p>
+          <p>User: {activePoint.va_name}</p>
+          <p>Status: {activePoint.event_name} </p>
+          <p>Hours: {activePoint.hours}</p>
+        </div>
+      );
+    }
+
+    return null;
+  };
 
   const uniqueSortedMonths = Array.from(
     new Set(series.flatMap(({ data }) => data.map(({ month }) => month)))
-  ).sort((a: string, b: string) => {
+  ).sort((a, b) => {
     const [aMonth, aYear] = [a.substring(0, 3), a.substring(3)];
     const [bMonth, bYear] = [b.substring(0, 3), b.substring(3)];
     if (aYear !== bYear) {
       return parseInt(aYear) - parseInt(bYear);
     } else {
       return (
-        new Date(`${aMonth} 1, ${aYear}`).getTime() -
-        new Date(`${bMonth} 1, ${bYear}`).getTime()
+        new Date(aMonth + " 1, " + aYear) - new Date(bMonth + " 1, " + bYear)
       );
     }
   });
 
-  //tooltip
-
-  const CustomTooltip: React.FC<tooltipProps> = ({ active, payload }) => {
-    if (active && activePoint && payload && payload.length) {
-      return (
-        <div className={`${Style.tooltipbox} `}>
-          <p>
-            <span>Date:</span> {activePoint.month}
-          </p>
-          <p>
-            <span>User:</span>
-            {activePoint.va_name}
-          </p>
-          <p>
-            <span>Status:</span>
-            {activePoint.event_name}
-          </p>
-          <p>
-            <span>Hours:</span>
-            {activePoint.hours}
-          </p>
-          <p>
-            <span>Prices:</span>
-            {activePoint.price}
-          </p>
-        </div>
-      );
-    }
-
-    return <></>;
-  };
-
   return (
-    <div
-      className={""}
-      style={{ height: "100vh", backgroundColor: "white", color: "black" }}
-    >
-      <ResponsiveContainer width="100%" height={"100%"}>
-        <LineChart style={{ marginLeft: "100px" }}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis
-            dataKey="month"
-            type="category"
-            allowDuplicatedCategory={false}
-            domain={uniqueSortedMonths}
-            padding={{ left: 100, right: 100 }}
-          />
-          <YAxis
+    <div>
+      <LineChart
+        width={3000}
+        height={1000}
+        data={series.flatMap(({ data }) => data)}
+        margin={{ top: 20, right: 50, left: 20, bottom: 20 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+        <XAxis
+          dataKey="month"
+          type="category"
+          allowDuplicatedCategory={false}
+          domain={uniqueSortedMonths}
+          padding={{ left: 100, right: 100 }}
+        />
+        <YAxis
+          dataKey="va_name"
+          type="category"
+          allowDuplicatedCategory={false}
+          padding={{ top: 100, bottom: 100 }}
+        />
+        <Tooltip
+          content={<CustomTooltip />}
+          position={{
+            x: activePoint && activePoint.cx,
+            y: activePoint && activePoint.cy,
+          }}
+          isAnimationActive={false}
+          filterNull={false}
+          cursor={false}
+        />
+        {series.map((s, index) => (
+          <Line
+            key={index}
             dataKey="va_name"
-            type="category"
-            allowDuplicatedCategory={false}
-            padding={{ top: 100, bottom: 100 }}
+            stroke="#BCC7DB"
+            strokeWidth={2}
+            data={s.data}
+            dot={(props) => (
+              <circle
+                {...props}
+                key={index}
+                width={10}
+                r={10}
+                stroke={props.payload.dotColor}
+                strokeWidth={4}
+                onMouseOver={() => {
+                  handleMouseOver(props.payload);
+                }}
+                onMouseLeave={handleMouseLeave}
+              />
+            )}
           />
-
-          <Tooltip
-            content={<CustomTooltip />}
-            position={
-              activePoint ? { x: activePoint.cx, y: activePoint.cy } : undefined
-            } // Use conditional rendering for position
-            isAnimationActive={false}
-            filterNull={false}
-            cursor={false}
-          />
-
-          {series.map((s) => (
-            <Line
-              dataKey="va_name"
-              data={s.data}
-              key={s.id}
-              stroke="#BCC7DB"
-              dot={(props) => (
-                <circle
-                  key={s.id}
-                  {...props}
-                  r={8}
-                  // stroke={props.payload.dotColor}
-                  stroke={
-                    DotColors[
-                      props.payload.event_name as keyof typeof DotColors
-                    ]
-                  }
-                  strokeWidth={4}
-                  onMouseOver={() => {
-                    handleMouseOver(props.payload);
-                  }}
-                  onMouseLeave={handleMouseLeave}
-                />
-              )}
-            />
-          ))}
-        </LineChart>
-      </ResponsiveContainer>
+        ))}
+      </LineChart>
     </div>
   );
-};
-
-export default OrgTimelineChart;
+}

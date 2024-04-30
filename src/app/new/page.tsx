@@ -530,7 +530,7 @@ const OrgTimelineChart = () => {
       style={{ height: "100vh", backgroundColor: "white", color: "black" }}
     >
       <ResponsiveContainer width="100%" height={"100%"}>
-        <LineChart style={{ marginLeft: "100px" }}>
+        <LineChart>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis
             dataKey="month"
